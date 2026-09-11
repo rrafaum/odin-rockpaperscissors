@@ -41,6 +41,20 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+function endGame() {
+    buttons.forEach((button) => button.disabled = true);
+
+    const resetButton = document.createElement('button');
+    resetButton.textContent = 'Reset';
+    result.appendChild(resetButton);
+    resetButton.addEventListener('click', () => {
+        buttons.forEach((button) => button.disabled = false);
+        result.textContent = '';
+        humanScore = 0;
+        computerScore = 0;
+    });
+}
+
 buttons.forEach( (button) => {
     button.addEventListener('click', () => {
         const humanChoice = button.textContent;
@@ -50,9 +64,11 @@ buttons.forEach( (button) => {
         if (humanScore === 5) {
             result.textContent = `You win! ---
                     You: ${humanScore} | Computer: ${computerScore}`;
+            endGame();
         } else if (computerScore === 5) {
             result.textContent = `Computer win! ---
                     You: ${humanScore} | Computer: ${computerScore}`
+            endGame();
         }
     });
 });
